@@ -1,4 +1,5 @@
 
+import time
 import requests
 import random
 from bs4 import BeautifulSoup 
@@ -59,17 +60,17 @@ public_key = private_key.public_key
 
 relay_manager = RelayManager()
 relay_manager.add_relay("wss://nostr-pub.wellorder.net")
-relay_manager.add_relay("wss://relay.damus.io")
+#relay_manager.add_relay("wss://relay.damus.io")
 relay_manager.add_relay("wss://nos.lol")
 relay_manager.add_relay("wss://nostr.zebedee.cloud")
 relay_manager.add_relay("wss://nostr.bitcoiner.social")
-relay_manager.add_relay("wss://nostr.stoner.com")
-relay_manager.add_relay("wss://relay.nostr.info")
-relay_manager.add_relay("wss://relay.mostr.pub")
-relay_manager.add_relay("wss://offchain.pub")
+#relay_manager.add_relay("wss://nostr.stoner.com")
+#relay_manager.add_relay("wss://relay.nostr.info")
+#relay_manager.add_relay("wss://relay.mostr.pub")
+#relay_manager.add_relay("wss://offchain.pub")
 relay_manager.add_relay("wss://relay.utxo.one")
 relay_manager.open_connections({"cert_reqs": ssl.CERT_NONE}) # NOTE: This disables ssl certificate verification
-time.sleep(10) # allow the connections to open
+time.sleep(1.25) # allow the connections to open
 
 note = content[0] + '\n' + content[1]
 event = Event(public_key = public_key.hex(), content = note)
@@ -77,5 +78,5 @@ private_key.sign_event(event)
 try:
     relay_manager.publish_event(event)
 finally:
-    time.sleep(60) # allow the messages to send
-    relay_manager.close_connections()
+   time.sleep(1) # allow the messages to send
+   relay_manager.close_connections()
